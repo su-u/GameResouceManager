@@ -21,20 +21,20 @@ namespace GameResouceManagerFW
         public Double Procesor { private set; get; }
 
 
-        SystemObserver()
+        public SystemObserver()
         {
             this.pcCpu = new System.Diagnostics.PerformanceCounter(catCpu, countCpu, instanceName);
             this.pcMem = new System.Diagnostics.PerformanceCounter(catMem, countMem);
         }
 
-        void Main(string[] args)
+        public void Measurement()
         {
             //1秒おきに値を取得する
             for (int i = 0; i < 10; i++)
             {
                 //計算された値を取得し、表示する
-                Console.WriteLine(this.pcCpu.NextValue());
-                Console.WriteLine(this.pcMem.NextValue());
+                Console.WriteLine($"{this.pcCpu.NextValue()}%");
+                Console.WriteLine($"{this.pcMem.NextValue()}MB");
                 //1秒待機する
                 System.Threading.Thread.Sleep(1000);
             }
