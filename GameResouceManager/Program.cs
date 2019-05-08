@@ -18,12 +18,13 @@ namespace GameResouceManager
             //System.Diagnostics.Process[] ps =
             //    System.Diagnostics.Process.GetProcesses("machinename");
 
-            String[] gameList = new String[] { "notepad", "b" };
+            String[] gameList = new String[] { "notepad"};
             List<String> pNmaeList = new List<string>(gameList);
 
+
+
             List<System.Diagnostics.Process> gameProcessList = pslist.FindAll(n => pNmaeList.Any(p => p == n.ProcessName));
-
-
+            
             //while (true)
             //{
             //配列から1つずつ取り出す
@@ -31,7 +32,6 @@ namespace GameResouceManager
             {
                 try
                 {
-
                     //プロセス名を出力する
                     Console.WriteLine($"プロセス名:{p.ProcessName}");
                     //ID
@@ -54,10 +54,10 @@ namespace GameResouceManager
             }
             //    System.Threading.Thread.Sleep(1000);
             //}
-            Write("", ps);
+            Write("", gameProcessList);
         }
 
-        static void Write(String text, System.Diagnostics.Process[] ps)
+        static void Write(String text, List<System.Diagnostics.Process> ps)
         {
             try
             {
