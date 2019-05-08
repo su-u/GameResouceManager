@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameResouceManager", "GameResouceManager\GameResouceManager.csproj", "{A63C0355-F2D7-4EF6-A64D-3D89D590C721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameResouceObserver", "GameResouceManager\GameResouceObserver.csproj", "{A63C0355-F2D7-4EF6-A64D-3D89D590C721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameResouceManagerFW", "GameResouceManagerFW\GameResouceManagerFW.csproj", "{50BBCE5E-AD0B-4C26-BCFA-E5AB33EB52A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameResouceObserverFW", "GameResouceManagerFW\GameResouceObserverFW.csproj", "{50BBCE5E-AD0B-4C26-BCFA-E5AB33EB52A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
