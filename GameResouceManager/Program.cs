@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;  
 
 namespace GameResouceManager
 {
@@ -9,16 +11,27 @@ namespace GameResouceManager
             //ローカルコンピュータ上で実行されているすべてのプロセスを取得
             System.Diagnostics.Process[] ps =
                 System.Diagnostics.Process.GetProcesses();
+            List<System.Diagnostics.Process> pslist = new List<System.Diagnostics.Process>(ps);
+
             //"machinename"という名前のコンピュータで実行されている
             //すべてのプロセスを取得するには次のようにする。
             //System.Diagnostics.Process[] ps =
             //    System.Diagnostics.Process.GetProcesses("machinename");
 
+            String[] gameList = new String[] { "notepad", "b" };
+            List<String> pNmaeList = new List<string>(gameList);
+
+            List<System.Diagnostics.Process> gameProcessList = pslist.FindAll(n => pNmaeList.Any(p => p == n.ProcessName));
+
+
+            //while (true)
+            //{
             //配列から1つずつ取り出す
-            foreach (System.Diagnostics.Process p in ps)
+            foreach (System.Diagnostics.Process p in gameProcessList)
             {
                 try
                 {
+
                     //プロセス名を出力する
                     Console.WriteLine($"プロセス名:{p.ProcessName}");
                     //ID
@@ -39,6 +52,8 @@ namespace GameResouceManager
                     Console.WriteLine("エラー: {0}", ex.Message);
                 }
             }
+            //    System.Threading.Thread.Sleep(1000);
+            //}
             Write("", ps);
         }
 
