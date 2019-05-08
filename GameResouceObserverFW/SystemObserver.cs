@@ -8,9 +8,6 @@ namespace GameResouceManagerFW
 {
     class SystemObserver
     {
-        //コンピュータ名
-        //"."はローカルコンピュータを表す
-        //コンピュータ名は省略可能（省略時は"."）
         string machineName = ".";
         //カテゴリ名
         string categoryName = "Processor";
