@@ -7,23 +7,17 @@ namespace GameResouceObserver
 {
     class ProcessObserver
     {
-        static void Main(string[] args)
-        {
-            //ローカルコンピュータ上で実行されているすべてのプロセスを取得
-            System.Diagnostics.Process[] ps =
-                System.Diagnostics.Process.GetProcesses();
-            List<System.Diagnostics.Process> pslist = new List<System.Diagnostics.Process>(ps);
+        private List<System.Diagnostics.Process> pslist;
+        private List<String> pNmaeList;
 
-            //"machinename"という名前のコンピュータで実行されている
-            //すべてのプロセスを取得するには次のようにする。
-            //System.Diagnostics.Process[] ps =
-            //    System.Diagnostics.Process.GetProcesses("machinename");
+        private String[] gameList = new String[] { "生き残れミドリムシ" };
 
-            String[] gameList = new String[] { "生き残れミドリムシ" };
-            List<String> pNmaeList = new List<string>(gameList);
+        ProcessObserver() {
+            pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
+            pNmaeList = new List<string>(gameList);
+        }
 
-
-
+        public void WriteGameProcess(){
             List<System.Diagnostics.Process> gameProcessList = pslist.FindAll(n => pNmaeList.Any(p => p == n.ProcessName));
 
             //while (true)
