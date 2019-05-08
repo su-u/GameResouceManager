@@ -53,10 +53,6 @@ namespace GameResouceObserver
                     Console.WriteLine("エラー: {0}", ex.Message);
                 }
             }
-            //    System.Threading.Thread.Sleep(1000);
-            //}
-            Write("", gameProcessList);
         }
-
     }
 }
