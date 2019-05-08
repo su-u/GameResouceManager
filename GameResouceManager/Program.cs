@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;  
+using System.Linq;
 
 namespace GameResouceManager
 {
@@ -18,7 +18,7 @@ namespace GameResouceManager
             //System.Diagnostics.Process[] ps =
             //    System.Diagnostics.Process.GetProcesses("machinename");
 
-            String[] gameList = new String[] { "notepad"};
+            String[] gameList = new String[] { "生き残れミドリムシ" };
             List<String> pNmaeList = new List<string>(gameList);
 
 
@@ -41,7 +41,7 @@ namespace GameResouceManager
                     //合計プロセッサ時間
                     Console.WriteLine("合計プロセッサ時間: {0}", p.TotalProcessorTime);
                     //物理メモリ使用量
-                    Console.WriteLine("物理メモリ使用量: {0}", p.WorkingSet64);
+                    Console.WriteLine("物理メモリ使用量: {0} MB", p.WorkingSet64 / 1024.0 / 1024.0);
                     //.NET Framework 1.1以前では次のようにする
                     //Console.WriteLine("物理メモリ使用量: {0}", p.WorkingSet);
 
@@ -55,6 +55,44 @@ namespace GameResouceManager
             //    System.Threading.Thread.Sleep(1000);
             //}
             Write("", gameProcessList);
+
+            string machineName = ".";
+            //カテゴリ名
+            string categoryName = "Processor";
+            //カウンタ名
+            string counterName = "% Processor Time";
+            //インスタンス名
+            string instanceName = "_Total";
+
+            //カテゴリが存在するか確かめる
+            if (!System.Diagnostics.PerformanceCounterCategory.Exists(
+                categoryName, machineName))
+            {
+                Console.WriteLine("登録されていないカテゴリです。");
+                return;
+            }
+
+            //カウンタが存在するか確かめる
+            if (!System.Diagnostics.PerformanceCounterCategory.CounterExists(
+                counterName, categoryName, machineName))
+            {
+                Console.WriteLine("登録されていないカウンタです。");
+                return;
+            }
+
+            //PerformanceCounterオブジェクトの作成
+            System.Diagnostics.PerformanceCounter pc =
+                new System.Diagnostics.PerformanceCounter(
+                categoryName, counterName, instanceName, machineName);
+
+            //1秒おきに値を取得する
+            for (int i = 0; i < 10; i++)
+            {
+                //計算された値を取得し、表示する
+                Console.WriteLine(pc.NextValue());
+                //1秒待機する
+                System.Threading.Thread.Sleep(1000);
+            }
         }
 
         static void Write(String text, List<System.Diagnostics.Process> ps)
