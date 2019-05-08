@@ -19,6 +19,8 @@ namespace GameResouceManagerFW
         //インスタンス名
         string instanceName = "_Total";
 
+        System.Diagnostics.PerformanceCounter pc;
+
         SystemObserver()
         {
 
@@ -39,12 +41,12 @@ namespace GameResouceManagerFW
             }
 
             //PerformanceCounterオブジェクトの作成
-            System.Diagnostics.PerformanceCounter pc =
+            this.pc =
                 new System.Diagnostics.PerformanceCounter(
                 categoryName, counterName, instanceName, machineName);
         }
 
-        static void Main(string[] args)
+        void Main(string[] args)
         {
 
 
@@ -52,10 +54,10 @@ namespace GameResouceManagerFW
             for (int i = 0; i < 10; i++)
             {
                 //計算された値を取得し、表示する
-                Console.WriteLine(pc.NextValue());
+                Console.WriteLine(this.pc.NextValue());
                 //1秒待機する
                 System.Threading.Thread.Sleep(1000);
             }
         }
-   
+    }   
 }
