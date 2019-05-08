@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace GameResouceManager
 {
-    class Program
+    class ProcessObserver
     {
         static void Main(string[] args)
         {
