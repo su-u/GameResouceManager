@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{50BBCE5E-AD0B-4C26-BCFA-E5AB33EB52A5}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>GameResouceManagerFW</RootNamespace>
-    <AssemblyName>GameResouceManagerFW</AssemblyName>
+    <RootNamespace>GameResouceObserverFW</RootNamespace>
+    <AssemblyName>GameResouceObserverFW</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
