@@ -8,53 +8,41 @@ namespace GameResouceManagerFW
 {
     class SystemObserver
     {
-        string machineName = ".";
-        //カテゴリ名
-        string categoryName = "Processor";
-        //カウンタ名
-        string counterName = "% Processor Time";
-        //インスタンス名
-        string instanceName = "_Total";
+        private const String catCpu = "Processor";
+        private const String countCpu = "% Processor Time";
+        private const String instanceName = "_Total";
 
-        System.Diagnostics.PerformanceCounter pc;
+        private const String catMem = "Memory";
+        private const String countMem = "Available MBytes";
+
+        System.Diagnostics.PerformanceCounter pcCpu;
+        System.Diagnostics.PerformanceCounter pcMem;
+
+        public Double Procesor { private set; get; }
+
 
         SystemObserver()
         {
-
-            //カテゴリが存在するか確かめる
-            if (!System.Diagnostics.PerformanceCounterCategory.Exists(
-            this.categoryName, this.machineName))
-            {
-                Console.WriteLine("登録されていないカテゴリです。");
-                return;
-            }
-
-            //カウンタが存在するか確かめる
-            if (!System.Diagnostics.PerformanceCounterCategory.CounterExists(
-                this.counterName, this.categoryName, this.machineName))
-            {
-                Console.WriteLine("登録されていないカウンタです。");
-                return;
-            }
-
-            //PerformanceCounterオブジェクトの作成
-            this.pc =
-                new System.Diagnostics.PerformanceCounter(
-                categoryName, counterName, instanceName, machineName);
+            this.pcCpu = new System.Diagnostics.PerformanceCounter(catCpu, countCpu, instanceName);
+            this.pcMem = new System.Diagnostics.PerformanceCounter(catMem, countMem);
         }
 
         void Main(string[] args)
         {
-
-
             //1秒おきに値を取得する
             for (int i = 0; i < 10; i++)
             {
                 //計算された値を取得し、表示する
-                Console.WriteLine(this.pc.NextValue());
+                Console.WriteLine(this.pcCpu.NextValue());
+                Console.WriteLine(this.pcMem.NextValue());
                 //1秒待機する
                 System.Threading.Thread.Sleep(1000);
             }
+        }
+
+        private void Update()
+        {
+            this.pcCpu.NextValue();
         }
     }   
 }
