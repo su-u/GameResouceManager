@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="ProcessObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemObserver.cs" />
+    <Compile Include="Writter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
