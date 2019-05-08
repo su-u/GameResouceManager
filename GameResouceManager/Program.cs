@@ -20,9 +20,9 @@ namespace GameResouceManager
                 try
                 {
                     //プロセス名を出力する
-                    Console.WriteLine("プロセス名: {0}", p.ProcessName);
+                    Console.WriteLine($"プロセス名:{p.ProcessName}");
                     //ID
-                    Console.WriteLine("ID: {0}", p.Id);
+                    Console.WriteLine($"ID: {p.Id}");
                     //メインモジュールのパス
                     Console.WriteLine("ファイル名: {0}", p.MainModule.FileName);
                     //合計プロセッサ時間
@@ -38,6 +38,31 @@ namespace GameResouceManager
                 {
                     Console.WriteLine("エラー: {0}", ex.Message);
                 }
+            }
+            Write("", ps);
+        }
+
+        static void Write(String text, System.Diagnostics.Process[] ps)
+        {
+            try
+            {
+                // appendをtrueにすると，既存のファイルに追記
+                //         falseにすると，ファイルを新規作成する
+                var append = true;
+                // 出力用のファイルを開く
+                var utf8_encoding = new System.Text.UTF8Encoding(false);
+                using (var sw = new System.IO.StreamWriter(@"test.csv", append, System.Text.Encoding.UTF8))
+                {
+                    foreach (System.Diagnostics.Process p in ps)
+                    {
+                        sw.Write($"{p.ProcessName},{p.Id},{p.WorkingSet64}\n");
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                // ファイルを開くのに失敗したときエラーメッセージを表示
+                System.Console.WriteLine(e.Message);
             }
         }
     }
