@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Management;
 
-namespace GameResouceManagerFW
+namespace GameResouceObserver
 {
     class SystemObserver
     {
