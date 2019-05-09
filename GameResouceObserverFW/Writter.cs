@@ -18,7 +18,7 @@ namespace GameResouceObserver
                 var utf8_encoding = new System.Text.UTF8Encoding(false);
                 using (var sw = new System.IO.StreamWriter(filename, append, System.Text.Encoding.UTF8))
                 {
-                    sw.Write($"{DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")},{text}");
+                    sw.Write($"{DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss:fff")},{text}");
                 }
             }
             catch (System.Exception e)
