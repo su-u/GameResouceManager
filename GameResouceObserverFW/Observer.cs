@@ -65,7 +65,7 @@ namespace GameResouceObserver
                 {
                     try
                     {
-                        String outP = $"{p.TotalProcessorTime}s, {p.WorkingSet64 / 1024.0 / 1024.0:#.###}MB\n";
+                        String outP = $"{p.TotalProcessorTime}, {p.WorkingSet64 / 1024.0 / 1024.0:#.###}\n";
 
                         Console.WriteLine($"プロセス名:{p.ProcessName}");
                         Console.WriteLine($"ID: {p.Id}");
