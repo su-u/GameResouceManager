@@ -20,8 +20,8 @@ namespace GameResouceManagerFW
         System.Diagnostics.PerformanceCounter pcCpu;
         System.Diagnostics.PerformanceCounter pcMem;
 
-        public Double usingProcesor { private set; get; }
-        public Double usingMemory { private set; get; }
+        public Double usingProcesor { private set; get; } = 0.0;
+        public Double usingMemory { private set; get; } = 0.0;
 
         public readonly Double totalVisibleMemorySize;
 
@@ -36,7 +36,7 @@ namespace GameResouceManagerFW
 
             foreach (System.Management.ManagementObject mo in moc)
             {
-                this.totalVisibleMemorySize = Convert.ToDouble(mo["TotalVisibleMemorySize"]);
+                this.totalVisibleMemorySize = Convert.ToDouble(mo["TotalVisibleMemorySize"]) / 1024.0;
                 mo.Dispose();
             }
 
@@ -46,14 +46,11 @@ namespace GameResouceManagerFW
 
         public void Measurement()
         {
-            //1秒おきに値を取得する
-            for (int i = 0; i < 10; i++)
+            while(true)
             {
-                //計算された値を取得し、表示する
                 this.Update();
-                Console.WriteLine($"{this.usingProcesor}%");
-                Console.WriteLine($"{this.usingMemory}MB");
-                //1秒待機する
+                Console.WriteLine($"{this.usingProcesor:#.##}%");
+                Console.WriteLine($"{this.usingMemory:#.###}MB");
                 System.Threading.Thread.Sleep(1000);
             }
         }
@@ -61,7 +58,8 @@ namespace GameResouceManagerFW
         private void Update()
         {
             this.usingProcesor = this.pcCpu.NextValue();
-            this.usingMemory = this.pcMem.NextValue();
+            Double tmp = this.totalVisibleMemorySize - this.pcMem.NextValue();
+            this.usingMemory = tmp;
         }
 
         private void PrintManagementObject(System.Management.ManagementObject mo)
