@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using System.Diagnostics;
 
 namespace GameResouceObserver
 {
@@ -9,6 +10,7 @@ namespace GameResouceObserver
     {
         private List<System.Diagnostics.Process> pslist;
         private List<String> pNmaeList;
+        private List<System.Diagnostics.Process> gameProcessList;
 
         private String[] gameList = new String[] {
             "Doukyonin",
@@ -37,6 +39,14 @@ namespace GameResouceObserver
             "bomber!!!!!",
             "おたキジ" };
 
+
+        private const String catCpu = "Process";
+        private const String countCpu = "% Processor Time";
+
+        private PerformanceCounter playingProcess;
+        private String playingProcessName = "";
+        public Double playingProcessCpu { private set; get; }
+
         public ProcessObserver() {
             pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
             pNmaeList = new List<string>(gameList);
@@ -45,41 +55,33 @@ namespace GameResouceObserver
         public void Update()
         {
             pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
+            this.gameProcessList = pslist.FindAll(n => pNmaeList.Any(p => p == n.ProcessName));
+            this.ProcessUpdate();
         }
 
         public List<System.Diagnostics.Process> GetGameProcess(){
-            List<System.Diagnostics.Process> gameProcessList = pslist.FindAll(n => pNmaeList.Any(p => p == n.ProcessName));
-
-            //foreach (System.Diagnostics.Process p in gameProcessList)
-            //{
-            //    try
-            //    {
-            //        //プロセス名を出力する
-            //        Console.WriteLine($"プロセス名:{p.ProcessName}");
-            //        //ID
-            //        Console.WriteLine($"ID: {p.Id}");
-            //        //メインモジュールのパス
-            //        Console.WriteLine("ファイル名: {0}", p.MainModule.FileName);
-            //        //合計プロセッサ時間
-            //        Console.WriteLine("合計プロセッサ時間: {0}", p.TotalProcessorTime);
-            //        //物理メモリ使用量
-            //        Console.WriteLine("物理メモリ使用量: {0} MB", p.WorkingSet64 / 1024.0 / 1024.0);
-            //        //.NET Framework 1.1以前では次のようにする
-            //        //Console.WriteLine("物理メモリ使用量: {0}", p.WorkingSet);
-
-            //        Console.WriteLine();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine("エラー: {0}", ex.Message);
-            //    }
-            //}
-            return gameProcessList;
+            return this.gameProcessList;
         }
 
-        //public static System.Diagnostics.PerformanceCounter GetProcessResouce()
-        //{
-        //    System.Diagnostics.PerformanceCounter pc = new System.Diagnostics.PerformanceCounter();
-        //}
+        private void ProcessUpdate()
+        {
+            if (gameProcessList.Count > 0)
+            {
+                this.playingProcessName = gameProcessList[0].ProcessName;
+                if (this.playingProcess == null)
+                {
+                    this.playingProcess = new PerformanceCounter(catCpu, countCpu, this.playingProcessName, ".");
+                }
+                else
+                {
+                    this.playingProcessCpu = this.playingProcess.NextValue();
+                }
+            }
+            else
+            {
+                this.playingProcessName = "";
+                this.playingProcess = null;
+            }
+        }
     }
 }

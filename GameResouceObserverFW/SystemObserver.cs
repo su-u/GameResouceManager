@@ -11,7 +11,7 @@ namespace GameResouceObserver
     class SystemObserver
     {
         private const String catCpu = "Processor";
-        private const String countCpu = "% Processor Time";
+        private const String countCpu = "% Idle Time";
         private const String instanceName = "_Total";
 
         private const String catMem = "Memory";
@@ -44,20 +44,9 @@ namespace GameResouceObserver
             mc.Dispose();
         }
 
-        public void Measurement()
-        {
-            while(true)
-            {
-                this.Update();
-                Console.WriteLine($"{this.usingProcesor:#.##}%");
-                Console.WriteLine($"{this.usingMemory:#.###}MB");
-                System.Threading.Thread.Sleep(1000);
-            }
-        }
-
         public void Update()
         {
-            this.usingProcesor = this.pcCpu.NextValue();
+            this.usingProcesor = 100.0 - this.pcCpu.NextValue();
             Double tmp = this.totalVisibleMemorySize - this.pcMem.NextValue();
             this.usingMemory = tmp;
         }

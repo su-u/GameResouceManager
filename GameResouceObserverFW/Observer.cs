@@ -45,7 +45,7 @@ namespace GameResouceObserver
             try
             {
                 this.systemObserver.Update();
-                String outS = $"{this.systemObserver.usingProcesor:#.##}, {this.systemObserver.usingMemory:#.###}\n";
+                String outS = $"{this.systemObserver.usingProcesor:0.00}, {this.systemObserver.usingMemory:0.000}\n";
                 Writter.Write("system.csv", outS);
                 Console.WriteLine(outS);
             }
@@ -59,13 +59,14 @@ namespace GameResouceObserver
                 this.processObserver.Update();
 
                 List<System.Diagnostics.Process> gameProcessList = this.processObserver.GetGameProcess();
-                String outS = $"{this.systemObserver.usingProcesor:#.##}, {this.systemObserver.usingMemory:#.###}\n";
+                String outS = $"{this.systemObserver.usingProcesor:0.00}, {this.systemObserver.usingMemory:0.00}\n";
                 foreach (System.Diagnostics.Process p in gameProcessList)
                 {
                     try
                     {
-                        String outP = $"{p.TotalProcessorTime}, {p.WorkingSet64 / 1024.0 / 1024.0:#.###}\n";
+                        String outP = $"{this.processObserver.playingProcessCpu:0.00,0}, {p.WorkingSet64 / 1024.0 / 1024.0:0.00}\n";
 
+                        Console.WriteLine($"CPU: {this.processObserver.playingProcessCpu}%");
                         Console.WriteLine($"プロセス名:{p.ProcessName}");
                         Console.WriteLine($"ID: {p.Id}");
                         Console.WriteLine("ファイル名: {0}", p.MainModule.FileName);
