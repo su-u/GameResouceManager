@@ -8,7 +8,7 @@ namespace GameResouceObserver
 {
     class Writter
     {
-        static void Write(String filename, String text)
+        static public void Write(String filename, String text)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace GameResouceObserver
                 var utf8_encoding = new System.Text.UTF8Encoding(false);
                 using (var sw = new System.IO.StreamWriter(filename, append, System.Text.Encoding.UTF8))
                 {
-                    sw.Write(text);
+                    sw.Write($"{DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")},{text}");
                 }
             }
             catch (System.Exception e)

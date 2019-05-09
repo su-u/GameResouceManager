@@ -55,7 +55,7 @@ namespace GameResouceObserver
             }
         }
 
-        private void Update()
+        public void Update()
         {
             this.usingProcesor = this.pcCpu.NextValue();
             Double tmp = this.totalVisibleMemorySize - this.pcMem.NextValue();
