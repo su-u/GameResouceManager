@@ -5,33 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management;
 
-namespace GameResouceManagerFW
+namespace GameResouceObserver
 {
     class Observer
     {
-        
+        private Boolean isLoop = true;
+        private SystemObserver systemObserver;
+        private ProcessObserver processObserver;
 
         static void Main(String[] args)
         {
-            SystemObserver so = new SystemObserver();
-            so.Measurement();
+            
         }
 
-        public void Communicate()
+        public Observer()
         {
-            _communicateLoop = true;
+            this.systemObserver = new SystemObserver();
+            this.processObserver = new ProcessObserver();
+        }
 
+        public void Observe()
+        {
             var _ = Task.Run(() =>
             {
-                while (_communicateLoop)
+                while (this.isLoop)
                 {
                     try
                     {
-                        // クライアントとの送信・受信処理
+                        this.
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning("[Server] " + e);
+                        Console.WriteLine("エラー: {0}", e.Message);
                     }
                 }
             });

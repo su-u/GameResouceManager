@@ -11,9 +11,14 @@ namespace GameResouceObserver
 
         private String[] gameList = new String[] { "生き残れミドリムシ" };
 
-        ProcessObserver() {
+        public ProcessObserver() {
             pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
             pNmaeList = new List<string>(gameList);
+        }
+
+        public void Update()
+        {
+            pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
         }
 
         public void WriteGameProcess(){
