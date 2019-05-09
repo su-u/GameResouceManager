@@ -10,7 +10,6 @@ namespace GameResouceObserver
 {
     class Observer
     {
-        private Boolean isLoop = true;
         private SystemObserver systemObserver;
         private ProcessObserver processObserver;
 
