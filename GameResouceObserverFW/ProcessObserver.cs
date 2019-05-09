@@ -10,7 +10,32 @@ namespace GameResouceObserver
         private List<System.Diagnostics.Process> pslist;
         private List<String> pNmaeList;
 
-        private String[] gameList = new String[] { "生き残れミドリムシ" };
+        private String[] gameList = new String[] {
+            "Doukyonin",
+            "monochrom",
+            "VRAUN",
+            "BRAUN",
+            "SofumeRemix",
+            "BalloonGhost",
+            "Cat_Ch",
+            "CraneGame",
+            "MEMORY_NOTES_interlude",
+            "SushiVR_Build20190426",
+            "3M",
+            "生き残れミドリムシ",
+            "sunset_of_ironrust",
+            "MINEUCHI",
+            "main",
+            "Yuru",
+            "Puzzle",
+            "EscapeBox",
+            "CubeLabyrinth_190502",
+            "Bob\'s Music School",
+            "蚊スタムキャスト",
+            "WS_arakan_1",
+            "yagiyagi",
+            "bomber!!!!!",
+            "おたキジ" };
 
         public ProcessObserver() {
             pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
