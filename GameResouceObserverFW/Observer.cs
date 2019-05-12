@@ -10,6 +10,8 @@ namespace GameResouceObserver
 {
     class Observer
     {
+        const Int32 TIME_INTERVAL = 5000;
+
         private SystemObserver systemObserver;
         private ProcessObserver processObserver;
 
@@ -29,7 +31,7 @@ namespace GameResouceObserver
         public void Run()
         {
             TimerCallback timerDelegate = new TimerCallback(Observe);
-            Timer timer = new Timer(timerDelegate, null, 0, 1000);
+            Timer timer = new Timer(timerDelegate, null, 0, TIME_INTERVAL);
 
 
             Console.ReadKey(); // キーが押されるまで待機
