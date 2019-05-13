@@ -33,8 +33,7 @@ namespace GameResouceObserver
             TimerCallback timerDelegate = new TimerCallback(Observe);
             Timer timer = new Timer(timerDelegate, null, 0, TIME_INTERVAL);
 
-
-            Console.ReadKey(); // キーが押されるまで待機
+            Console.ReadKey();
 
             timer.Change(Timeout.Infinite, Timeout.Infinite);
             Console.WriteLine("タイマー停止");
@@ -49,7 +48,7 @@ namespace GameResouceObserver
                 this.systemObserver.Update();
                 String outS = $"{this.systemObserver.usingProcesor:0.00}, {this.systemObserver.usingMemory:0.000}\n";
                 Writter.Write("system.csv", outS);
-                Console.WriteLine(outS);
+                Console.Write(outS);
             }
             catch (Exception e)
             {
@@ -74,9 +73,8 @@ namespace GameResouceObserver
                         Console.WriteLine("ファイル名: {0}", p.MainModule.FileName);
                         Console.WriteLine("合計プロセッサ時間: {0}", p.TotalProcessorTime);
                         Console.WriteLine("物理メモリ使用量: {0} MB", p.WorkingSet64 / 1024.0 / 1024.0);
-                        Console.WriteLine();
 
-                        Writter.Write($"{p.ProcessName}.csv",outP);
+                        Writter.Write($"{p.ProcessName}.csv", outP);
                     }
                     catch (Exception ex)
                     {

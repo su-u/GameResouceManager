@@ -3,42 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using System.Diagnostics;
+using System.IO;
 
 namespace GameResouceObserver
 {
     class ProcessObserver
     {
         private List<System.Diagnostics.Process> pslist;
-        private List<String> pNmaeList;
+        private List<String> pNmaeList = null;
         private List<System.Diagnostics.Process> gameProcessList;
-
-        private String[] gameList = new String[] {
-            "Doukyonin",
-            "monochrom",
-            "VRAUN",
-            "BRAUN",
-            "SofumeRemix",
-            "BalloonGhost",
-            "Cat_Ch",
-            "CraneGame",
-            "MEMORY_NOTES_interlude",
-            "SushiVR_Build20190426",
-            "3M",
-            "生き残れミドリムシ",
-            "sunset_of_ironrust",
-            "MINEUCHI",
-            "main",
-            "Yuru",
-            "Puzzle",
-            "EscapeBox",
-            "CubeLabyrinth_190502",
-            "Bob\'s Music School",
-            "蚊スタムキャスト",
-            "WS_arakan_1",
-            "yagiyagi",
-            "bomber!!!!!",
-            "おたキジ" };
-
 
         private const String catCpu = "Process";
         private const String countCpu = "% Processor Time";
@@ -47,15 +20,50 @@ namespace GameResouceObserver
         private String playingProcessName = "";
         public Double playingProcessCpu { private set; get; }
 
+        private const String CSV_LIST = "ProcessList.csv";
+
         public ProcessObserver() {
-            pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
-            pNmaeList = new List<string>(gameList);
+            this.pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
+            this.pNmaeList = new List<string>();
+
+            try { 
+                var utf8_encoding = new System.Text.UTF8Encoding(false);
+                using (StreamReader sr = new StreamReader(CSV_LIST, utf8_encoding))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        String line = sr.ReadLine();
+                        this.pNmaeList.Add(line);
+                     }
+                }
+            }
+            catch (System.Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
+
+            if (this.pNmaeList != null)
+            {
+                foreach (var i in this.pNmaeList)
+                {
+                    Console.WriteLine(i.ToString());
+                }
+            }
+
+
         }
 
         public void Update()
         {
             pslist = new List<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcesses());
             this.gameProcessList = pslist.FindAll(n => pNmaeList.Any(p => p == n.ProcessName));
+            if (this.gameProcessList != null)
+            {
+                foreach (var i in this.gameProcessList)
+                {
+                    Console.WriteLine(i.ToString());
+                }
+            }
             this.ProcessUpdate();
         }
 
