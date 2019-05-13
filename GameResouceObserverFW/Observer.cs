@@ -73,6 +73,7 @@ namespace GameResouceObserver
                         Console.WriteLine("ファイル名: {0}", p.MainModule.FileName);
                         Console.WriteLine("合計プロセッサ時間: {0}", p.TotalProcessorTime);
                         Console.WriteLine("物理メモリ使用量: {0} MB", p.WorkingSet64 / 1024.0 / 1024.0);
+                        Console.WriteLine();
 
                         Writter.Write($"{p.ProcessName}.csv", outP);
                     }
